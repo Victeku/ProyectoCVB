@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Usuarios;
+use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
-
-class UsuariosController extends Controller
+use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\ApiController;
+class UsuariosController extends ApiController
 {
+    use ApiResponser;
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +19,8 @@ class UsuariosController extends Controller
     {
         
         $usuarios = Usuarios::all();
-        return response()->json(['data' =>$usuarios, 200]);
-        //return $this->showOne($usuario);
+        //return response()->json(['data' =>$usuarios, 200]);
+        return $this->showAll($usuarios);
     }
 
     /**
@@ -38,6 +41,7 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
+
         $reglas = [
             'nombre'=>'required',
             'apellidop'=>'required',
@@ -59,8 +63,8 @@ class UsuariosController extends Controller
         $this->validate($request, $reglas);
         $campos = $request->all();
         $usuarios = usuarios::create($campos);
-        //return $this->showOne($usuarios, 201);
-        return response()->json(['data' =>$usuarios, 201]);
+        return $this->showOne($usuarios, 201);
+        //return response()->json(['data' =>$usuarios, 201]);
     }
 
     /**
@@ -72,8 +76,8 @@ class UsuariosController extends Controller
     public function show($id_usuario)
     {
         $usuario = usuarios::findOrfail($id_usuario);
-        return response()->json(['usuario' => $usuario, 200]);
-        //return $this->showOne($usuario);
+        //return response()->json(['usuario' => $usuario, 200]);
+        return $this->showOne($usuario);
     }
 
     /**
@@ -109,8 +113,8 @@ class UsuariosController extends Controller
     {
         $user = usuarios::findOrfail($id_usuario);
         $user->delete();
-        return response()->json(['data' => $user], 200);
-       // return $this->showOne($user);
+        //return response()->json(['data' => $user], 200);
+        return $this->showOne($user);
     }
 
     public function altausuario(){

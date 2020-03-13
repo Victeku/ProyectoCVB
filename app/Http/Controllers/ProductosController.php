@@ -3,20 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Productos;
+use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\ApiController;
 
-class ProductosController extends Controller
+
+class ProductosController extends ApiController
 {
+    use ApiResponser;
     /**
      * Display a listing of the resource.
      *
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function index()
+  
+     public function index()
     {
         $producto= Productos::all();
-        return response()->json(['data' =>$producto, 200]);
-        //return $this->showOne($producto);
+        //return response()->json(['data' =>$producto, 200]);
+       return $this->showAll($producto);
     }
 
     /**
@@ -37,7 +44,20 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $reglas = [
+            'nombre'=>'required',
+            'categoria'=>'required',
+            'precio'=>'required',
+            'color'=>'required',
+            'tamaño'=>'required',
+            
+        ];
+
+        $this->validate($request, $reglas);
+        $campos = $request->all();
+        $productos = productos::create($campos);
+        return $this->showOne($productos, 201);
+        //return response()->json(['data' =>$productos, 201]);
     }
 
     /**
@@ -82,9 +102,12 @@ class ProductosController extends Controller
      * @param  \App\Productos  $productos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Productos $productos)
+    public function destroy($id_producto)
     {
-        //
+        $producto = productos::findOrfail($id_producto);
+        $producto->delete();
+        //return response()->json(['data' => $producto], 200);
+        return $this->showOne($producto);
     }
 
     public function formulario(){
@@ -105,7 +128,7 @@ class ProductosController extends Controller
         return redirect('/reporteproductos');
     }
     public function reporteproductos(){
-        //$usuarios['usuarios']=Usuarios::paginate(5);
+        //$productos['productos']=productos::paginate(5);
 
         $consulta = \DB::select("SELECT po.id_producto,po.nombre,po.categoria,po.precio,po.color,po.tamaño
         FROM productos AS po");
