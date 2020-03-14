@@ -15,10 +15,10 @@ class ProductosController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
-  
+
      public function index()
     {
         $producto= Productos::all();
@@ -50,7 +50,7 @@ class ProductosController extends ApiController
             'precio'=>'required',
             'color'=>'required',
             'tamaño'=>'required',
-            
+
         ];
 
         $this->validate($request, $reglas);
@@ -91,9 +91,24 @@ class ProductosController extends ApiController
      * @param  \App\Productos  $productos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Productos $productos)
+    public function update(Request $request, $id_producto)
     {
-        //
+      $producto = productos::findOrfail($id_producto);
+    /*  $producto->update($request->all());
+      return $producto; */
+      $reglas = [
+        ];
+      $this->validate($request, $reglas);
+
+            if ($request->has('nombre')){
+                $producto->nombre =$request->nombre;
+            }
+
+            if (!$producto->isDirty()){
+                return response()->json(['error'=>'Se debe especificar al menos un valor diferente para actualizar','code' => 422],422);
+            }
+            $producto->save();
+            return response()->json(['data'=> $producto,200]);
     }
 
     /**
@@ -135,6 +150,6 @@ class ProductosController extends ApiController
         return view('productos.reporteproductos')
         ->with('consulta',$consulta);
 
-        
+
     }
 }

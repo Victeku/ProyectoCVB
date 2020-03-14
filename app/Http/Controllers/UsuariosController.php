@@ -17,7 +17,7 @@ class UsuariosController extends ApiController
      */
     public function index()
     {
-        
+
         $usuarios = Usuarios::all();
         //return response()->json(['data' =>$usuarios, 200]);
         return $this->showAll($usuarios);
@@ -57,7 +57,7 @@ class UsuariosController extends ApiController
             'archivo'=>'required',
             'correo'=>'required',
             'password'=>'required',
-            
+
         ];
 
         $this->validate($request, $reglas);
@@ -98,11 +98,25 @@ class UsuariosController extends ApiController
      * @param  \App\Usuarios  $usuarios
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Usuarios $usuarios)
+    public function update(Request $request, $id_usuario)
     {
-        //
-    }
+      $user = usuarios::findOrfail($id_usuario);
+      /* $user->update($request->all());
+      return $user; */
+      $reglas = [
+        ];
+      $this->validate($request, $reglas);
 
+            if ($request->has('nombre')){
+                $user->nombre =$request->nombre;
+            }
+
+            if (!$user->isDirty()){
+                return response()->json(['error'=>'Se debe especificar al menos un valor diferente para actualizar','code' => 422],422);
+            }
+            $user->save();
+            return response()->json(['data'=> $user,200]);
+      }
     /**
      * Remove the specified resource from storage.
      *
@@ -169,7 +183,7 @@ class UsuariosController extends ApiController
         echo '<script>alert("Nuevo Registro Exitoso")</script> ';
        //return view('usuarios.reporteusuarios');
 
-       
+
        return redirect('/reporteusuarios');
 
        //return view ('usuarios/vista');
@@ -182,7 +196,7 @@ class UsuariosController extends ApiController
         return view('usuarios.reporteusuarios')
         ->with('consulta',$consulta);
 
-        
+
     }
     public function editausuario(Request $request){
         $nombre=$request->nombre;
@@ -216,14 +230,14 @@ class UsuariosController extends ApiController
             {
             $usuarios->archivo = $img2;
             }
-       
+
         $usuarios->id_usuario=$request->id_usuario;
         $usuarios->nombre=$request->nombre;
         $usuarios->apellidop=$request->apellidop;
         $usuarios->apellidom=$request->apellidom;
         $usuarios->genero=$request->genero;
         $usuarios->fn=$request->fn;
-        
+
         $usuarios->estado=$request->estado;
         $usuarios->municipio=$request->municipio;
         $usuarios->direccion=$request->direccion;
