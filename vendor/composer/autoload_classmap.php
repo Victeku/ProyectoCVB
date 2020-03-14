@@ -6,9 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Almacen' => $baseDir . '/app/Almacen.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Estados' => $baseDir . '/app/Estados.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Http\\Controllers\\AlmacenController' => $baseDir . '/app/Http/Controllers/AlmacenController.php',
     'App\\Http\\Controllers\\ApiController' => $baseDir . '/app/Http/Controllers/ApiController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
@@ -19,6 +21,7 @@ return array(
     'App\\Http\\Controllers\\EstadosController' => $baseDir . '/app/Http/Controllers/EstadosController.php',
     'App\\Http\\Controllers\\MunicipiosController' => $baseDir . '/app/Http/Controllers/MunicipiosController.php',
     'App\\Http\\Controllers\\ProductosController' => $baseDir . '/app/Http/Controllers/ProductosController.php',
+    'App\\Http\\Controllers\\TicketsController' => $baseDir . '/app/Http/Controllers/TicketsController.php',
     'App\\Http\\Controllers\\UsuariosController' => $baseDir . '/app/Http/Controllers/UsuariosController.php',
     'App\\Http\\Controllers\\vista' => $baseDir . '/app/Http/Controllers/vista.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
@@ -30,6 +33,7 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Municipios' => $baseDir . '/app/Municipios.php',
+    'App\\Pago' => $baseDir . '/app/Pago.php',
     'App\\Productos' => $baseDir . '/app/Productos.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',

@@ -387,9 +387,11 @@ class ComposerStaticInit3fd14be83dd66a9949f73ed316225411
     );
 
     public static $classMap = array (
+        'App\\Almacen' => __DIR__ . '/../..' . '/app/Almacen.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Estados' => __DIR__ . '/../..' . '/app/Estados.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\AlmacenController' => __DIR__ . '/../..' . '/app/Http/Controllers/AlmacenController.php',
         'App\\Http\\Controllers\\ApiController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApiController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
@@ -400,6 +402,7 @@ class ComposerStaticInit3fd14be83dd66a9949f73ed316225411
         'App\\Http\\Controllers\\EstadosController' => __DIR__ . '/../..' . '/app/Http/Controllers/EstadosController.php',
         'App\\Http\\Controllers\\MunicipiosController' => __DIR__ . '/../..' . '/app/Http/Controllers/MunicipiosController.php',
         'App\\Http\\Controllers\\ProductosController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProductosController.php',
+        'App\\Http\\Controllers\\TicketsController' => __DIR__ . '/../..' . '/app/Http/Controllers/TicketsController.php',
         'App\\Http\\Controllers\\UsuariosController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsuariosController.php',
         'App\\Http\\Controllers\\vista' => __DIR__ . '/../..' . '/app/Http/Controllers/vista.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
@@ -411,6 +414,7 @@ class ComposerStaticInit3fd14be83dd66a9949f73ed316225411
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Municipios' => __DIR__ . '/../..' . '/app/Municipios.php',
+        'App\\Pago' => __DIR__ . '/../..' . '/app/Pago.php',
         'App\\Productos' => __DIR__ . '/../..' . '/app/Productos.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
