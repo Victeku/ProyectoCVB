@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Regiones;
+use App\Tickets;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class RegionesController extends Controller
+class TicketsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class RegionesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Regiones  $regiones
+     * @param  \App\Tickets  $tickets
      * @return \Illuminate\Http\Response
      */
-    public function show(Regiones $regiones)
+    public function show(Tickets $tickets)
     {
         //
     }
@@ -52,10 +53,10 @@ class RegionesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Regiones  $regiones
+     * @param  \App\Tickets  $tickets
      * @return \Illuminate\Http\Response
      */
-    public function edit(Regiones $regiones)
+    public function edit(Tickets $tickets)
     {
         //
     }
@@ -64,10 +65,10 @@ class RegionesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Regiones  $regiones
+     * @param  \App\Tickets  $tickets
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Regiones $regiones)
+    public function update(Request $request, Tickets $tickets)
     {
         //
     }
@@ -75,10 +76,10 @@ class RegionesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Regiones  $regiones
+     * @param  \App\Tickets  $tickets
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Regiones $regiones)
+    public function destroy(Tickets $tickets)
     {
         //
     }
