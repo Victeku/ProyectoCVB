@@ -21,6 +21,7 @@ class CreateProductosTable extends Migration
             $table->string('color');
             $table->string('tamaño');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -14,8 +14,16 @@ class CreateAlmacensTable extends Migration
     public function up()
     {
         Schema::create('almacens', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->Increments('id_almacen');
+            $table->string('estado_p');
+            $table->string('cantidad_p');
+            $table->string('fecha_ing');
+            $table->string('fecha_sal');
             $table->timestamps();
+            $table->softDeletes();
+            $table->integer('id_producto')->unsigned();
+            $table->foreign('id_producto')->references('id_producto')->on('productos');
+
         });
     }
 
