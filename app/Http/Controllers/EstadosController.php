@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Estados;
+use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\ApiController;
 
-class EstadosController extends Controller
+class EstadosController extends ApiController
 {
+    use ApiResponser;
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,9 @@ class EstadosController extends Controller
      */
     public function index()
     {
-        //
+        $estados = Estados::all();
+        //return response()->json(['data' =>$estados, 200]);
+        return $this->showAll($estados);
     }
 
     /**
@@ -35,7 +41,14 @@ class EstadosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $reglas = [
+            'nombre'=>'required',
+        ];
+        
+        $this->validate($request, $reglas);
+        $campos = $request->all();
+        $estados = Estados::create($campos);
+        return $this->showOne($estados, 201);
     }
 
     /**
@@ -44,9 +57,11 @@ class EstadosController extends Controller
      * @param  \App\Estados  $estados
      * @return \Illuminate\Http\Response
      */
-    public function show(Estados $estados)
+    public function show($id_estado)
     {
-        //
+        $estado =Estados::findOrfail($id_estado);
+        //return response()->json(['estado' => $estado, 200]);
+        return $this->showOne($estado);
     }
 
     /**
@@ -67,9 +82,24 @@ class EstadosController extends Controller
      * @param  \App\Estados  $estados
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Estados $estados)
+    public function update(Request $request, $id_estado)
     {
-        //
+        $state = Estados::findOrfail($id_estado);
+        /* $state->update($request->all());
+        return $state; */
+        $reglas = [
+          ];
+        $this->validate($request, $reglas);
+  
+              if ($request->has('nombre')){
+                  $state->nombre =$request->nombre;
+              }
+  
+              if (!$state->isDirty()){
+                  return response()->json(['error'=>'Se debe especificar al menos un valor diferente para actualizar','code' => 422],422);
+              }
+              $state->save();
+              return response()->json(['data'=> $state,200]);
     }
 
     /**
@@ -78,8 +108,11 @@ class EstadosController extends Controller
      * @param  \App\Estados  $estados
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Estados $estados)
+    public function destroy($id_estado)
     {
-        //
+        $state = Estado::findOrfail($id_estado);
+        $state->delete();
+        //return response()->json(['data' => $state], 200);
+        return $this->showOne($state);
     }
 }
