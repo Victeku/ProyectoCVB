@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Tickets;
+use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\ApiController;
 
-class TicketsController extends Controller
+class TicketsController extends ApiController
 {
+    use ApiResponser;
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +19,9 @@ class TicketsController extends Controller
      */
     public function index()
     {
-        //
+        $tickets = Tickets::all();
+        //return response()->json(['data' =>$tickets, 200]);
+        return $this->showAll($tickets);
     }
 
     /**
@@ -36,7 +42,10 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $campos = $request->all();
+        $tickets = Tickets::create($campos);
+        return $this->showOne($tickets, 201);
     }
 
     /**
@@ -45,9 +54,11 @@ class TicketsController extends Controller
      * @param  \App\Tickets  $tickets
      * @return \Illuminate\Http\Response
      */
-    public function show(Tickets $tickets)
+    public function show($id_ticket)
     {
-        //
+        $tickets = Tickets::findOrfail($id_ticket);
+        //return response()->json(['tickets' => $tickets, 200]);
+        return $this->showOne($tickets);
     }
 
     /**
@@ -68,9 +79,22 @@ class TicketsController extends Controller
      * @param  \App\Tickets  $tickets
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tickets $tickets)
+    public function update(Request $request, $id_ticket)
     {
-        //
+        $tick = Tickets::findOrfail($id_ticket);
+        /* $tick->update($request->all());
+        return $tick; */
+        $reglas = [
+          ];
+        $this->validate($request, $reglas);
+  
+        if ($request->has('total')){
+            $tick->total =$request->total;
+        }else{
+            return response()->json(['error'=>'Se debe especificar al menos un valor diferente para actualizar','code' => 422],422);
+        }
+              $tick->save();
+              return response()->json(['data'=> $tick,200]);
     }
 
     /**
@@ -79,8 +103,11 @@ class TicketsController extends Controller
      * @param  \App\Tickets  $tickets
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tickets $tickets)
+    public function destroy($id_ticket)
     {
-        //
+        $ticket = Tickets::findOrfail($id_ticket);
+        $ticket->delete();
+        //return response()->json(['data' => $ticket], 200);
+        return $this->showOne($ticket);
     }
 }
