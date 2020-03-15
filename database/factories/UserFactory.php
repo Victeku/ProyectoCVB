@@ -1,9 +1,16 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\User;
+
+use App\Usuarios;
+use App\Productos;
+use App\Estados;
+use App\Municipios;
+use App\Almacen;
+use App\Pago;
+use App\Tickets;
 use Illuminate\Support\Str;
-use Faker\Generator as Faker;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +23,74 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(Usuarios::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'remember_token' => Str::random(10),
+        'activo' => $faker->word,
+        'nombre' => $faker->word,
+        'apellidop' => $faker->word,
+        'apellidom' => $faker->word,
+        'genero' => $faker->word,
+        'telefono' => $faker->word,
+        'fn' => $faker->word,
+        'tipo_u' => $faker->word,
+        'archivo' => $faker->word,
+        'correo' => $faker->word,
+        'password' => $faker->word,
+        'estado' => $faker->word,
+        'municipio' => $faker->word,
+        'direccion' => $faker->word
+    ];
+});
+
+$factory->define(Productos::class, function (Faker\Generator $faker) {
+    return [
+        'nombre' => $faker->word,
+        'categoria' => $faker->word,
+        'precio' => $faker->word,
+        'color' => $faker->word,
+        'tamaño' => $faker->word
+    ];
+});
+
+
+$factory->define(Estados::class, function (Faker\Generator $faker) {
+    return [
+        'nombre' => $faker->word
+    ];
+});
+
+$factory->define(Municipios::class, function (Faker\Generator $faker) {
+    return [
+        'nombre' => $faker->word
+    ];
+});
+
+$factory->define(Almacen::class, function (Faker\Generator $faker) {
+    return [
+        'estado_p' => $faker->word,
+        'cantidad_p' => $faker->numberBetween(1, 1000),
+        'fecha_ing' => $faker->word,
+        'fecha_sal' => $faker->word,
+        'id_producto' => $faker->numberBetween(1, 100)
+    ];
+});
+
+$factory->define(Pago::class, function (Faker\Generator $faker) {
+    return [
+        'tipo_p' => $faker->word,
+        'num_t' => $faker->numberBetween(1, 100),
+        'nip_t' => $faker->word,
+        'monto_p' => $faker->numberBetween(1, 10000),
+        'id_usuario' => $faker->numberBetween(1, 100)
+    ];
+});
+
+$factory->define(Tickets::class, function (Faker\Generator $faker) {
+    return [
+        'id_producto' => $faker->numberBetween(1, 100),
+        'id_pago' => $faker->numberBetween(1, 100),
+        'fechainicial' => $faker->word,
+        'fechaentrega' => $faker->word,
+        'total' => $faker->numberBetween(1, 10000)
     ];
 });

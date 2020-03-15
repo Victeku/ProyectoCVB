@@ -22,7 +22,7 @@ class CreatePagosTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->integer('id_usuario')->unsigned();
-              $table->foreign('id_usuario')->references('id_usuario')->on('usuarios');
+            $table->foreign('id_usuario')->references('id_usuario')->on('usuarios');
         });
     }
 

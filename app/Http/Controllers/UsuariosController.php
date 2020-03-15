@@ -110,7 +110,6 @@ class UsuariosController extends ApiController
             if ($request->has('nombre')){
                 $user->nombre =$request->nombre;
             }
-
             if (!$user->isDirty()){
                 return response()->json(['error'=>'Se debe especificar al menos un valor diferente para actualizar','code' => 422],422);
             }
