@@ -13,10 +13,10 @@ class CreateAlmacensTable extends Migration
      */
     public function up()
     {
-        Schema::create('almacens', function (Blueprint $table) {
+        Schema::create('almacen', function (Blueprint $table) {
             $table->Increments('id_almacen');
             $table->string('estado_p');
-            $table->string('cantidad_p');
+            $table->integer('cantidad_p');
             $table->string('fecha_ing');
             $table->string('fecha_sal');
             $table->timestamps();
@@ -34,6 +34,6 @@ class CreateAlmacensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('almacens');
+        Schema::dropIfExists('almacen');
     }
 }
