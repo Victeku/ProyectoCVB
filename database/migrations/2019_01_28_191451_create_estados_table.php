@@ -17,6 +17,7 @@ class CreateEstadosTable extends Migration
             $table->Increments('id_estado');
             $table->string('nombre');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
