@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Municipios;
+use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\ApiController;
 
-class MunicipiosController extends Controller
+class MunicipiosController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +17,8 @@ class MunicipiosController extends Controller
      */
     public function index()
     {
-        //
+        $municipios = Municipios::all();
+        return $this->showAll($municipios);
     }
 
     /**
@@ -35,7 +39,14 @@ class MunicipiosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $reglas = [
+            'nombre'=>'required',
+        ];
+
+        $this->validate($request, $reglas);
+        $campos = $request->all();
+        $municipio = Municipios::create($campos);
+        return $this->showOne($municipio, 201);
     }
 
     /**
@@ -44,9 +55,10 @@ class MunicipiosController extends Controller
      * @param  \App\Municipios  $municipios
      * @return \Illuminate\Http\Response
      */
-    public function show(Municipios $municipios)
+    public function show($id_municipio)
     {
-        //
+         $municipio = Municipios::findOrfail($id_municipio);
+        return $this->showOne($municipio);
     }
 
     /**
@@ -67,9 +79,22 @@ class MunicipiosController extends Controller
      * @param  \App\Municipios  $municipios
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Municipios $municipios)
+    public function update(Request $request, $id_municipio)
     {
-        //
+        $muni = Municipios::findOrfail($id_municipio);
+        $reglas = [
+          ];
+        $this->validate($request, $reglas);
+
+              if ($request->has('nombre')){
+                  $muni->nombre =$request->nombre;
+              }
+
+              if (!$muni->isDirty()){
+                  return response()->json(['error'=>'Se debe especificar al menos un valor diferente para actualizar','code' => 422],422);
+              }
+              $muni->save();
+              return response()->json(['data'=> $muni,200]);
     }
 
     /**
@@ -78,8 +103,10 @@ class MunicipiosController extends Controller
      * @param  \App\Municipios  $municipios
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Municipios $municipios)
+    public function destroy($id_municipio)
     {
-        //
+         $muni = Municipios::findOrfail($id_municipio);
+        $muni->delete();
+        return $this->showOne($muni);
     }
 }
