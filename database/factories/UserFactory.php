@@ -36,9 +36,9 @@ $factory->define(Usuarios::class, function (Faker\Generator $faker) {
         'archivo' => $faker->word,
         'correo' => $faker->word,
         'password' => $faker->word,
-        'estado' => $faker->word,
-        'municipio' => $faker->word,
-        'direccion' => $faker->word
+        'direccion' => $faker->word,
+        'id_estado' => $faker->numberBetween(1, 100),
+        'id_municipio' => $faker->numberBetween(1, 100)
     ];
 });
 

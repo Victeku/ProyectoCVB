@@ -100,8 +100,6 @@ class PagoController extends Controller
             }
             $pagos->save();
             return response()->json(['data'=> $pagos,200]);
-            echo 'Ahora sé que los datos están validados. Puedo insertar en la base de datos';
-}
     }
 
 

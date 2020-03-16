@@ -28,14 +28,13 @@ class CreateUsuariosTable extends Migration
             $table->string('password');
             $table->timestamps();
             $table->softDeletes();
-            $table->string('estado');
-            $table->string('municipio');
+          
             $table->string('direccion');
-            /*$table->integer('estado')->unsigned();
+            $table->integer('id_estado')->unsigned();
             $table->foreign('id_estado')->references('id_estado')->on('estados');
-            $table->integer('municipio')->unsigned();
+            $table->integer('id_municipio')->unsigned();
             $table->foreign('id_municipio')->references('id_municipio')->on('municipios');
-*/
+
         });
     }
 
