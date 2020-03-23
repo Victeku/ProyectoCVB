@@ -30,7 +30,6 @@ Route::get('/reporteusuarios','UsuariosController@reporteusuarios')->name('repor
 
 Route::get('/reporteproductos','ProductosController@reporteproductos')->name('reporteproductos');
 Route::get('/vista','UsuariosController@vista')->name('vista');
-
-
 Route::get('/indexadmin','vista@indexadmin')->name('indexadmin');
 
+Route::get('/login','AccesoSistema@login')->name('login');
