@@ -118,6 +118,8 @@
 </style>
 
 <body>
+<div class="card">
+			<div class="card-body">
 <div class="table-responsive">
   <table role="table">
     <thead role="rowgroup" >
@@ -171,5 +173,7 @@
       @endforeach
     </tbody>
   </table>
+  </div>
+  </div>
   </div>
 @stop
