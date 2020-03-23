@@ -10,4 +10,7 @@ class AccesoSistema extends Controller
     public function login(){
         return view('sistema.login');
     }
+    public function index(){
+        return view('index');
+    }
 }
