@@ -32,18 +32,19 @@
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('log/images/bg-01.jpg');">
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-				<form class="login100-form validate-form">
-					<span class="login100-form-title p-b-49">
+				<form class="login100-form validate-form" action="{{route('valida')}}" method="POST">
+				{{csrf_field()}}	
+				<span class="login100-form-title p-b-49">
 						Login
 					</span>
 					<div class="wrap-input100 validate-input m-b-23" data-validate="El correo es requerido">
 						<span class="label-input100">Correo</span>
-						<input class="input100" type="text" name="username" placeholder="ingrese su correo">
+						<input class="input100" type="text" name="correo" placeholder="ingrese su correo">
 						<span class="focus-input100" data-symbol="&#xf206;"></span>
 					</div>
 					<div class="wrap-input100 validate-input" data-validate="La contraseña es requerida">
 						<span class="label-input100">Contraseña</span>
-						<input class="input100" type="password" name="pass" placeholder="Ingrese su contraseña">
+						<input class="input100" type="password" name="password" placeholder="Ingrese su contraseña">
 						<span class="focus-input100" data-symbol="&#xf190;"></span>
 					</div>
 					<div class="text-right p-t-8 p-b-31">
@@ -59,6 +60,9 @@
 							</button>
 						</div>
 					</div>
+					@if (Session::has('error'))
+                        <div>{{ Session::get('error') }}</div>
+	                    @endif
 				</form>
 			</div>
 		</div>

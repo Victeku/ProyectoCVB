@@ -33,4 +33,5 @@ Route::get('/vista','UsuariosController@vista')->name('vista');
 Route::get('/indexadmin','vista@indexadmin')->name('indexadmin');
 
 Route::get('/login','AccesoSistema@login')->name('login');
+Route::POST('/valida','AccesoSistema@valida')->name('valida');
 Route::get('/index','AccesoSistema@index')->name('index');
