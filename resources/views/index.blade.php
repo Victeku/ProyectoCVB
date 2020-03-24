@@ -69,10 +69,11 @@
               </div>
               <div class="rd-navbar-nav-wrap">
                 <div class="rd-navbar-nav-inner">
-                  <div class="rd-navbar-btn-wrap"><a class="button button-smaller button-primary-outline"
-                      href="{{url('/login')}}">Iniciar Sesion</a></div>
+                  <div class="rd-navbar-btn-wrap">
+                    <a class="button button-smaller button-primary-outline" href="{{url('/login')}}">Iniciar Sesion</a>
+                  </div>
                   <ul class="rd-navbar-nav">
-                    <li class="active"><a href="index.html">Inicio</a>
+                    <li ><a href="index.html">Inicio</a>
                     </li>
                     <li><a href="about-us.html">Productos</a>
                     </li>

@@ -23,22 +23,31 @@ class AccesoSistema extends Controller
            'correo'=>'required|email',
            'password'=>'required',
             ]);
-        $usuarios =Usuarios::where('correo','=',$correo)
-                             ->where('password','=',$password)
-                             ->where('activo','=','Si')
-                             ->get();
-        if (count($usuarios)==0 ){ 
-           Session::flash('error', 'El usuario no existe o la contraseña
-                                     no es correcta');
-           return redirect()->route('login');
-        }
-        else
-        {
-            Session::put('sesionname',$usuarios[0]->nombre . ' ' . $usuarios[0]->apellidop);
-            Session::put('sesionid_usuario',$usuarios[0]->id_usuario);
-            Session::put('sesiontipo',$usuarios[0]->tipo_u);
-            Session::put('sesionarchivo',$usuarios[0]->archivo);
-            return redirect()->route('indexadmin');		  
+        $admins =Usuarios::where('correo', $correo)
+            ->where('password','=',$password)
+            ->where('activo','=','Si')
+            ->select('id_usuario')
+            ->first();
+         //  return $admins;
+        $usuario = Usuarios::find($admins->id_usuario);
+        //return $usuario;
+
+        if ($usuario->tipo_u == 'admin'){ 
+            Session::put('sesionname',$usuario->nombre . ' ' . $usuario->apellidop);
+            Session::put('sesionid_usuario',$usuario->id_usuario);
+            Session::put('sesiontipo',$usuario->tipo_u);
+            Session::put('sesionarchivo',$usuario->archivo);
+            return redirect()->route('indexadmin');	
+        }else{
+            if($usuario->tipo_u == 'user'){
+                Session::put('sesionname',$usuario->nombre . ' ' . $usuario->apellidop);
+                Session::put('sesionid_usuario',$usuario->id_usuario);
+                Session::put('sesiontipo',$usuario->tipo_u);
+                Session::put('sesionarchivo',$usuario->archivo);
+                return redirect()->route('index');	
+            }
+	  
         }
     }
+ 
 }
