@@ -27,7 +27,7 @@ Route::get('/formularioxd','ProductosController@formulario');
 Route::post('/guardar','ProductosController@guardar');
 
 Route::get('/reporteusuarios','UsuariosController@reporteusuarios')->name('reporteusuarios');
-Route::get('/','UsuariosController@reporteusuarios')->name('users');
+Route::POST('/reporteusuarios','UsuariosController@reporteusuarios')->name('users');
 
 
 

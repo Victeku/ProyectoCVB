@@ -159,7 +159,7 @@
   <div class="card">
     <div class="card-body">
       <div class="table-responsive">
-        <form role="form" name='search' method="GET" action="{{route('users')}}">
+        <form role="form" name='search' method="POST" action="{{route('users')}}">
           {{ csrf_field() }}
           <div class="form-group">
             <input type="text" class="form-control" id="Buscar" placeholder="Buscar" name="buscar">
