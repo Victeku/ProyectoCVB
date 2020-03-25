@@ -187,13 +187,30 @@ class UsuariosController extends ApiController
 
        //return view ('usuarios/vista');
     }
-    public function reporteusuarios(){
+    public function reporteusuarios(Request $request){
         //$usuarios['usuarios']=Usuarios::paginate(5);
+        $data = [
+            "reporte" => "0", 
+            "buscar" => ""
+        ];
 
-        $consulta = \DB::select("SELECT usu.id_usuario,usu.nombre,usu.apellidop,usu.apellidom,usu.genero,usu.fn,usu.estado,usu.municipio,usu.direccion,usu.tipo_u,usu.archivo,usu.correo,usu.password
-        FROM usuarios AS usu");
+    $users = Usuarios::Buscar($request->get('buscar'))
+        ->orderBy('id_usuario')
+        ->paginate(3);
+
+    if($request->all() != null){
+            //dd($request->all());
+            $data = [
+                    "reporte" => 1, 
+                    "buscar" => $request->get('buscar')
+                ];
+        }
+        
+        
         return view('usuarios.reporteusuarios')
-        ->with('consulta',$consulta);
+        ->with($data)
+		->with(['users' => $users]);
+
 
 
     }
