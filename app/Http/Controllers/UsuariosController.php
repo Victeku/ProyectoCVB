@@ -7,6 +7,7 @@ use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\ApiController;
+use Session;
 class UsuariosController extends ApiController
 {
     use ApiResponser;
@@ -131,9 +132,32 @@ class UsuariosController extends ApiController
     }
 
     public function altausuario(){
+        $sname = Session::get('sesionname');
+        $sidu = Session::get('sesionid_ad');
+        $stipo = Session::get('sesiontipo');
+     if($sname =='' or $sidu =='' or $stipo=='')
+     {
+         Session::flash('error', 'Es necesario loguearse antes de continuar');
+       return redirect()->route('login');
+         
+     }
+     else
+     {
         return view('usuarios.altausuario');
     }
+}
     public function guardarusuario(Request $request){
+        $sname = Session::get('sesionname');
+        $sidu = Session::get('sesionid_ad');
+        $stipo = Session::get('sesiontipo');
+     if($sname =='' or $sidu =='' or $stipo=='')
+     {
+         Session::flash('error', 'Es necesario loguearse antes de continuar');
+       return redirect()->route('login');
+         
+     }
+     else
+     {
         $nombre=$request->nombre;
         $apellidop=$request->apellidop;
         $apellidom=$request->apellidom;
@@ -187,7 +211,19 @@ class UsuariosController extends ApiController
 
        //return view ('usuarios/vista');
     }
+}
     public function reporteusuarios(Request $request){
+        $sname = Session::get('sesionname');
+        $sidu = Session::get('sesionid_ad');
+        $stipo = Session::get('sesiontipo');
+     if($sname =='' or $sidu =='' or $stipo=='')
+     {
+         Session::flash('error', 'Es necesario loguearse antes de continuar');
+       return redirect()->route('login');
+         
+     }
+     else
+     {
         //$usuarios['usuarios']=Usuarios::paginate(5);
         $data = [
             "reporte" => "0", 
@@ -214,7 +250,19 @@ class UsuariosController extends ApiController
 
 
     }
+    }
     public function editausuario(Request $request){
+        $sname = Session::get('sesionname');
+        $sidu = Session::get('sesionid_ad');
+        $stipo = Session::get('sesiontipo');
+     if($sname =='' or $sidu =='' or $stipo=='')
+     {
+         Session::flash('error', 'Es necesario loguearse antes de continuar');
+       return redirect()->route('login');
+         
+     }
+     else
+     {
         $nombre=$request->nombre;
         $apellidop=$request->apellidop;
         $apellidom=$request->apellidom;
@@ -263,7 +311,7 @@ class UsuariosController extends ApiController
         $usuarios->save();
        echo "<script>alert('Registro Guardado')</scrip>";
        return view('usuarios.reporteusuarios');
-
+        }
     }
 
     public function modificausuario($id_usuario){
@@ -277,6 +325,17 @@ class UsuariosController extends ApiController
         return view('usuarios/vista');
     }
     public function eliminauser($id_usuario){
+        $sname = Session::get('sesionname');
+        $sidu = Session::get('sesionid_ad');
+        $stipo = Session::get('sesiontipo');
+     if($sname =='' or $sidu =='' or $stipo=='')
+     {
+         Session::flash('error', 'Es necesario loguearse antes de continuar');
+       return redirect()->route('login');
+         
+     }
+     else
+     {
 
       $consulta= \DB:: UPDATE("update usuarios
       set activo='No' where id_usuario= $id_usuario");
@@ -285,12 +344,24 @@ class UsuariosController extends ApiController
      // return redirect()->route('reporteusuarios');
        return redirect('/reporteusuarios');
     }
+}
     public function restableceruser($id_usuario){
-
+        $sname = Session::get('sesionname');
+		  $sidu = Session::get('sesionid_ad');
+		  $stipo = Session::get('sesiontipo');
+	   if($sname =='' or $sidu =='' or $stipo=='')
+	   {
+		   Session::flash('error', 'Es necesario loguearse antes de continuar');
+		 return redirect()->route('login');
+		   
+	   }
+	   else
+	   {
       $consulta= \DB:: UPDATE("update usuarios
       set activo='Si' where id_usuario= $id_usuario");
         // echo '<script>alert("Restauracion Exitosa")</script> ';
         //  return view('usuarios.reporteusuarios');
     return redirect('/reporteusuarios');
     }
+}
 }

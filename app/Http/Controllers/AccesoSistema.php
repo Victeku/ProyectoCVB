@@ -49,5 +49,14 @@ class AccesoSistema extends Controller
 	  
         }
     }
+    public function cerrarsesion()
+    {
+         Session::forget('sesionname');
+         Session::forget('sesionidu');
+         Session::forget('sesiontipo');
+         Session::flush();
+         Session::flash('error', 'Session Cerrada Correctamente');
+         return redirect()->route('index');
+    }
  
 }

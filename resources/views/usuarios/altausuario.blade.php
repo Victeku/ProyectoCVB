@@ -128,7 +128,7 @@
 					<div class="col-sm-12 col-lg-4 col-md-12">
 						<div class="form-group">
 							<label class="control-label" for="tipo_u">Tipo de Usuario:</label><br>
-							<input type="radio" name="tipo_u" id="Tipou" value="cliente" checked>Cliente<br>
+							<input type="radio" name="tipo_u" id="Tipou" value="user" checked>Cliente<br>
 							<input type="radio" name="tipo_u" id="Tipou" value="admin">Administrador
 						</div>
 					</div>

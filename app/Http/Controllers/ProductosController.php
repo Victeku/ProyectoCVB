@@ -7,7 +7,7 @@ use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\ApiController;
-
+use Session;
 
 class ProductosController extends ApiController
 {
@@ -21,6 +21,7 @@ class ProductosController extends ApiController
 
      public function index()
     {
+
         $producto= Productos::all();
         //return response()->json(['data' =>$producto, 200]);
        return $this->showAll($producto);
@@ -126,10 +127,32 @@ class ProductosController extends ApiController
     }
 
     public function formulario(){
+        $sname = Session::get('sesionname');
+        $sidu = Session::get('sesionid_ad');
+        $stipo = Session::get('sesiontipo');
+     if($sname =='' or $sidu =='' or $stipo=='')
+     {
+         Session::flash('error', 'Es necesario loguearse antes de continuar');
+       return redirect()->route('login');
+         
+     }
+     else
+     {
         return view("productos.formulario");
     }
-
+    }
    public function guardar(Request $request){
+    $sname = Session::get('sesionname');
+    $sidu = Session::get('sesionid_ad');
+    $stipo = Session::get('sesiontipo');
+ if($sname =='' or $sidu =='' or $stipo=='')
+ {
+     Session::flash('error', 'Es necesario loguearse antes de continuar');
+   return redirect()->route('login');
+     
+ }
+ else
+ {
         //  return $request;
         $product = new Productos;
         $product->nombre= $request->nombre;
@@ -142,14 +165,25 @@ class ProductosController extends ApiController
         //$product = Producto::all();
         return redirect('/reporteproductos');
     }
+}
     public function reporteproductos(){
+        $sname = Session::get('sesionname');
+        $sidu = Session::get('sesionid_ad');
+        $stipo = Session::get('sesiontipo');
+     if($sname =='' or $sidu =='' or $stipo=='')
+     {
+         Session::flash('error', 'Es necesario loguearse antes de continuar');
+       return redirect()->route('login');
+         
+     }
+     else
+     {
         //$productos['productos']=productos::paginate(5);
 
         $consulta = \DB::select("SELECT po.id_producto,po.nombre,po.categoria,po.precio,po.color,po.tamaño
         FROM productos AS po");
         return view('productos.reporteproductos')
         ->with('consulta',$consulta);
-
-
+     }
     }
 }
